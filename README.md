@@ -72,7 +72,10 @@ The same applies to coaches and bench players. As they are closer to the playfie
 Finally, referees' silhouettes might also enter that area, but as they participate of the sense of “game motion” it doesn’t affect our concept.
 
 ```
-NOTE: As seen on the example captured imagez, some optical distorsion might be still present after the camera does the dewarping. This is only relevant if it affects the pose area. I don't have a real camera yet to test this scenario. Lets consider this doesn't happen, and if a later stage it is discovered otherwise, we might require a further optical correction stage. As this is not relevant to the "algorithm" stages, we can assume for now it is not relevant.
+As seen on the example captured imagez, some optical distorsion might be still present after the camera does the dewarping.  
+This is only relevant if it affects the pose area. I don't have a real camera yet to test this scenario. Lets consider this  
+doesn't happen, and if a later stage it is discovered otherwise, we might require a further optical correction stage.  
+As this is not relevant to the "algorithm" stages, we can assume for now it is not relevant.
 ```
 
 # The hardware
