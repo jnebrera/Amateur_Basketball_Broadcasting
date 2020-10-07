@@ -94,7 +94,7 @@ OpenVINO documentation is quite abundant and prolific, this is why we have start
 
 The SBC we have found has an Intel Movidius Myriad X as VPU with PCI signaling (not USB) and a small Intel Atom x5-E3940 SOC as CPU. It is fully compatible with OpenVINO and in the future, could allow us to grow to other mini computers with multiple Movidius Myriad X VPUs available.
 
-![System](./images/Amateur_Basketball_Broadcasting_Camera_4.jpg "System")
+![System](./images/Amateur_Basketball_Broadcasting_Camera_0.jpg "System")
 
 Actually, we believe the algorithmic idea would be simple enough to consider the scenario of using just one gateway device to support multiple cameras concurrently, producing one Youtube stream for each.
 
