@@ -72,10 +72,11 @@ The same applies to coaches and bench players. As they are closer to the playfie
 Finally, referees' silhouettes might also enter that area, but as they participate of the sense of “game motion” it doesn’t affect our concept.
 
 ```
-As seen on the example captured imagez, some optical distorsion might be still present after the camera does the dewarping.  
-This is only relevant if it affects the pose area. I don't have a real camera yet to test this scenario. Lets consider this  
-doesn't happen, and if a later stage it is discovered otherwise, we might require a further optical correction stage.  
-As this is not relevant to the "algorithm" stages, we can assume for now it is not relevant.
+As seen on the example captured imagez, some optical distorsion might be still present after the  
+camera does the dewarping. This is only relevant if it affects the pose area. I don't have a real  
+camera yet to test this scenario. Lets consider this doesn't happen, and if a later stage it is  
+discovered otherwise, we might require a further optical correction stage. As this is not relevant  
+to the "algorithm" stages, we can assume for now it is not relevant.
 ```
 
 # The hardware
@@ -146,13 +147,13 @@ Now, in opposition to [1] that just focuses on computing the “center of gravit
 
 ```
 The output of this module will be:
-Report upwards the leftmost extreme
-Report upwards the rightmost extreme
-Report upwards the maximum point
-If a dual peak scenario is found, report it upwards (see later)
+1. Report upwards the leftmost extreme
+2. Report upwards the rightmost extreme
+3. Report upwards the maximum point
+4. If a dual peak scenario is found, report it upwards (see later)
 ```
 
-![1D Projection](./images/Amateur_Basketball_Broadcasting_Camera_5.jpg "1D Projection")
+![1D Projection](./images/Amateur_Basketball_Broadcasting_Camera_1.jpg "1D Projection")
 
 ## Ball detection
 
