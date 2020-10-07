@@ -1,6 +1,6 @@
 # Amateur Basketball Broadcasting Camera System
 
-![](./images/Amateur_Basketball_Broadcasting_Camera_7.jpg "Cover")
+![](./images/Title.jpg "Cover")
 
 # Introduction
 
