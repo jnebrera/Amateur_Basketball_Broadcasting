@@ -1,5 +1,7 @@
 # Amateur Basketball Broadcasting Camera System
 
+![](./images/Amateur_Basketball_Broadcasting_Camera_7.jpg "Cover")
+
 # Introduction
 
 I am a coach and parent of two kids in an amateur basketball club here in Spain. I suggested the club to use some kind of AI powered camera to broadcast the games to Youtube instead of a volunteered parent with his mobile, but I have found existing commercial solutions are way too expensive for the economic reality of an amateur club: either the camera costs too much (3K to 5K€) and/or the yearly payment is too high (3K to 20K€ per year).
