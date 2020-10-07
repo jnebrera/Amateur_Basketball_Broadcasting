@@ -22,7 +22,7 @@ The initial idea of the project was to develop our own custom camera, but after 
 
 Thus, we have seeked for viable COTS cameras with an horizontal FOV of 180º that are able to produce a single stream of already dewarped and stitched video. We have found several such alternatives, but we are going to focus on the cheapest one, as the price difference is significant.
 
-![Dual lense camera](./images/Amateur_Basketball_Broadcasting_Camera_0.jpg "Camera")
+![Dual lense camera](./images/Amateur_Basketball_Broadcasting_Camera_00.jpg "Camera")
 
 1. Dual 4K sensor
 2. 180º HFOV
@@ -53,17 +53,19 @@ It might be possible to calibrate the camera environment when doing the installa
 
 We define the following areas that might be used afterwards and that would be configured during camera installation by a professional.
 
-1. **Playground.-** Ground level area covering the 4 corners of the basketball field. Only players, ball and referees are allowed to be inside this area, thus would be a great candidate for motion detection as would be independent from public movement or coach / player in the bench moving. Unfortunately, the ball and part of the player's silhouette can be outside this area as they can be above the ground level.
+1. **Playground.-** Ground level area covering the 4 corners of the basketball field. Only players, ball and referees are allowed to be inside this area, thus would be a great candidate for motion detection as would be independent from public movement or coach / player in the bench moving. Unfortunately, the ball and part of the player's silhouette can be outside this area as they can be above the ground level.\
+\
 
-![Playground](./images/Amateur_Basketball_Broadcasting_Camera_1.jpg "Playground")
+![Playground](./images/Amateur_Basketball_Broadcasting_Camera_01.jpg "Playground")
+\
 
-2. **Area of interest.-** Is the 3D extension of the previous area, to 4m high in case of adult basketball or around 3.5m in the case of children basketball (minibasket). The ball could be anywhere inside this area, but at the same time, it might mean we include part of the public or benches as part of the capture
+2. **Area of interest.-** Is the 3D extension of the previous area, to 4m high in case of adult basketball or around 3.5m in the case of children basketball (minibasket). The ball could be anywhere inside this area, but at the same time, it might mean we include part of the public or benches as part of the capture\
 
-![Area of interest](./images/Amateur_Basketball_Broadcasting_Camera_2.jpg "Area of interest")
+![Area of interest](./images/Amateur_Basketball_Broadcasting_Camera_02.jpg "Area of interest")\
 
 3. **Camera pose.-** From the original capture, the area of the background that will be covered by the camera by virtually panning it left and right. The “camera” will not go beyond the lefmost and rightmost extreme corners of the playfield. While maintaining the 32:9 proportion we have to warrant the area of interest is fully included in the view. If this is not the case, then the camera will have to go further to the left and right until all of it is covered or we can work at a reduced ratio, like 24:9 as long as we are between the 32:9 maximum and the 16:9 minimum. If that case, the PAN effect will be reduced. \
 
-![Camera Pose](./images/Amateur_Basketball_Broadcasting_Camera_3.jpg "Camera Pose")
+![Camera Pose](./images/Amateur_Basketball_Broadcasting_Camera_03.jpg "Camera Pose")\
 
 It is important to warrant public doesn’t enter the playground area under any circumstance, for example if they stand up while watching the game. This should be possible as they are far away from the playground, but if the camera is not properly placed it might happen. This could interfere with the proposed motion detection stage.
 
