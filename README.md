@@ -186,13 +186,13 @@ The output then will be the position of the ball. If by any means the ball canno
 
 ```
 Combining the outputs from the two components we will have:
-Leftmost movement
-Rightmost movement
-Maximum movement
-Time out state
-Ball position
-If ball position is firm or suspected
-Warm up state
+1. Leftmost movement
+2. Rightmost movement
+3. Maximum movement
+4. Time out state
+5. Ball position (previus if unknown)
+6. If ball position is firm or suspected
+7. Warm up state
 ```
 
 As for warmup state, see below.
@@ -203,7 +203,7 @@ Once we have an idea of where the players and the ball are, we have to decide wh
 
 We have to try to follow the 1/3<sup>rd</sup> rule used in professional sports broadcasting, or at least something similar. We are going to define the hot area between 1/5<sup>th</sup> and 4/5<sup>th</sup> of the available frame. The area between the two will be the HOT area of the view, and our goal is to always keep the ball in that area and as many players as possible.
 
-![Fifth rule](./images/Amateur_Basketball_Broadcasting_Camera_6.jpg "Fifth")
+![Fifth rule](./images/Amateur_Basketball_Broadcasting_Camera_2.jpg "Fifth")
 
 The camera is giving us a 32:9 image ratio. As we will take away the left and right extremes to get into the camera pose, we should still maintain such a ratio and view all the area of interest. We are going to suppose this is the case, but the system could be used as long as the ratio is between the 32:9 and the final 16:9.
 
@@ -220,7 +220,7 @@ We define virtual panning as the movement effect produced by cropping the origin
 
 Our automatic cameraman system will only consider panning, without any tilt nor zooming.
 
-![Virtual panning](./images/Amateur_Basketball_Broadcasting_Camera_7.jpg "Virtual panning")
+![Virtual panning](./images/Amateur_Basketball_Broadcasting_Camera_3.jpg "Virtual panning")
 
 ## Game states
 
@@ -238,10 +238,11 @@ Funny enough, the situation where the algorithms fail the most due to weird move
 
 
 ```
-We consider a static play situation when the camera view is on the extreme side of the camera pose (left or right) and all movement is on the same side of the field
+We consider a static play situation when the camera view is on the extreme side of  
+the camera pose (left or right) and all movement is on the same side of the field
 ```
 
-![Static](./images/Amateur_Basketball_Broadcasting_Camera_8.jpg "Virtual panning")
+![Static](./images/Amateur_Basketball_Broadcasting_Camera_4.jpg "Virtual panning")
 
 All the movement, represented by the triangles (leftmost, max, rightmost), and the ball, represented by the black circle are on the same side of the field, and the camera view is already in the leftmost position.
 
@@ -260,16 +261,19 @@ These states will be evident but won’t be immediate. As their detection doesn�
 
 The movement distribution will adopt a “dual bell” shape and stay more or less stationary.
 
+![Timeouts](./images/Amateur_Basketball_Broadcasting_Camera_5.jpg "Timeouts")
+
 **Halftime (warmup)**
 
 While this situation could be confused with a timeout (actually it will start and end in a very similar shape), the main thing to distinguish it will be the presence of multiple basketballs in the court.
+
+![Warmup](./images/Amateur_Basketball_Broadcasting_Camera_6.jpg "Warmup")
 
 Both situations will be detected by the prior module as they are in charge of managing the movement function and the ball detection. As said, it is not relevant to detect them in every frame, once every Z seconds will be ok.
 
 In either case, the production module will transition zoom out at a _Zoom speed_ into a full court view. Also, in the future, it could be used to broadcast pre recorded videos (sponsors, commercials, …)
 
-The other way around, once the situation is no longer detected as timeout or warmup, it will slowly zoom in into the standard view to the ball at _Zoom speed_.
-
+The other way around, once the situation is no longer detected as timeout or warmup, it will slowly zoom in into the standard view to the ball at _Zoom speed_
 
 ## Out of bounds
 
@@ -292,16 +296,17 @@ The general idea is as in [1] and [2] : try to follow the general movement of th
 
 The rules would be:
 
-
-
 1. **Center the view in the max movement point but warrant the ball is in the hot area**
 
 As long as the ball is within the ball area, the camera will follow the max movement point to keep it centered in the image. The displacement needs to be below _V<sub>safe</sub>_ speed.
 
+![Transition: all in hot area](./images/Amateur_Basketball_Broadcasting_Camera_7.jpg "Transition: all in hot area")
 
 2. **If the ball gets out of the hot area, recover it**
 
 If by the movement of the camera due to following the max movement point, the ball gets out of the hot area, adjust framing to place it in the 1/5th or the 4/5th line (the closest). The displacement needs to be below _V<sub>unsafe</sub>_ speed.
+
+![Transition: ball out of hot area](./images/Amateur_Basketball_Broadcasting_Camera_8.jpg "Transition: ball out of hot area")
 
 As you can see in the diagram, the “centered” framing (slashed) left the ball outside the hot area. In this case we have to readjust the framing to leave the ball in the 1/5th line. Now, as a more dangerous situation, a higher speed of camera movement would be allowed, and this would be relevant for example when following a fast pass in a fast break, in order to try to keep pace with the ball.
 
@@ -312,6 +317,8 @@ Also, in some cases, the ball could end up being fully out of the frame. In this
 As a general rule, when not seeing the ball we will consider it static in the last known situation and apply the rest of rules.
 
 But there would be a special situation, that could potentially happen quite a bit if the last man is the one dribbling the ball upwards and covering it once in a while.
+
+![Transition: last man](./images/Amateur_Basketball_Broadcasting_Camera_9.jpg "Transition: last man")
 
 So if both the suspected position of the ball and the extreme player are both to the outside of the 5th area, instead of trying to place the static ball in the 1/5th or 4/5th line, we will place the extreme player instead. The speed, as in the case of the ball will be _V<sub>unsafe</sub>_. 
 
@@ -334,9 +341,9 @@ The second goal would be to warrant the smooth movement of the camera, in such a
 
 ```
 So the final output will be:
-A cropped frame in 16:9 proportion from the panoramic original as closest as possible to desired
-Movement in such a way it doesn't violate the 3 velocities limits
-Movement in such a way doesn't seem erratic or shaky
+1. A cropped frame in 16:9 proportion from the panoramic original as closest as possible to desired
+2. Movement in such a way it doesn't violate the 3 velocities limits
+3. Movement in such a way doesn't seem erratic or shaky
 ```
 
 # Further steps
