@@ -180,6 +180,7 @@ As for candidate algorithms our clues to use we have found that could be ported 
 2. [Kalman Filter Ensemble-Based Tracker](https://github.com/psenna/KF-EBT)
 3. [DaSiamRPN](https://github.com/foolwood/DaSiamRPN) (on par with SiamRPN’s performance but more precise)
 4. [Ensemble of Kernelized Correlation Filter Tracker](https://github.com/uzkent/EnKCF_Tracker)
+5. [Robust scale-adaptive mean-shift for tracking](https://github.com/vojirt/asms)
 
 The output then will be the position of the ball. If by any means the ball cannot be detected due to occlusion, then the prior known position will be reported, but maybe we will need to also flag this situation.
 
