@@ -173,8 +173,6 @@ As for candidate algorithms our clues to use we have found that could be ported 
 
 1. [https://github.com/dog-qiuqiu/Yolo-Fastest](https://github.com/dog-qiuqiu/Yolo-Fastest)
 2. [https://github.com/SyGoing/LFFD-OpenVINO](https://github.com/SyGoing/LFFD-OpenVINO) (the author states the model can be adapted to other single type object classes, like would be the case with the basketball)
-3. [SkyNet](https://arxiv.org/pdf/1909.09709.pdf)
-4. [ThunderNet](https://openaccess.thecvf.com/content_ICCV_2019/papers/Qin_ThunderNet_Towards_Real-Time_Generic_Object_Detection_on_Mobile_Devices_ICCV_2019_paper.pdf) (code available?)
 
 **Object tracking**
 
