@@ -171,10 +171,14 @@ As for candidate algorithms our clues to use we have found that could be ported 
 
 **Object detection**
 
+OpenVINO already includes detection capabilities exploiting Movidius VPU, maybe just test before considering a new development in any oh these alternatives:
+
 1. [https://github.com/dog-qiuqiu/Yolo-Fastest](https://github.com/dog-qiuqiu/Yolo-Fastest)
 2. [https://github.com/SyGoing/LFFD-OpenVINO](https://github.com/SyGoing/LFFD-OpenVINO) (the author states the model can be adapted to other single type object classes, like would be the case with the basketball)
 
 **Object tracking**
+
+Unfortunately, OpenVINO does the tracking using the CPU, which in our case is quite limited. We could first evaluate, but it might be interested to consider to port to OpenVINO one of these alternatives:
 
 1. [SiamRPN](https://github.com/STVIR/pysot) (faster than SiamMask and SiamRPN++ at the cost of less precision)
 2. [Kalman Filter Ensemble-Based Tracker](https://github.com/psenna/KF-EBT)
