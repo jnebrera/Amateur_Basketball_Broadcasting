@@ -177,10 +177,9 @@ As for candidate algorithms our clues to use we have found that could be ported 
 **Object tracking**
 
 1. [SiamRPN](https://github.com/STVIR/pysot) (faster than SiamMask and SiamRPN++ at the cost of less precision)
-2. [SPSTracker](https://github.com/TrackerLB/SPSTracker)
-3. [Kalman Filter Ensemble-Based Tracker](https://github.com/psenna/KF-EBT)
-4. [DaSiamRPN](https://github.com/foolwood/DaSiamRPN) (on par with SiamRPN’s performance but more precise)
-5. [Ensemble of Kernelized Correlation Filter Tracker](https://github.com/uzkent/EnKCF_Tracker)
+2. [Kalman Filter Ensemble-Based Tracker](https://github.com/psenna/KF-EBT)
+3. [DaSiamRPN](https://github.com/foolwood/DaSiamRPN) (on par with SiamRPN’s performance but more precise)
+4. [Ensemble of Kernelized Correlation Filter Tracker](https://github.com/uzkent/EnKCF_Tracker)
 
 The output then will be the position of the ball. If by any means the ball cannot be detected due to occlusion, then the prior known position will be reported, but maybe we will need to also flag this situation.
 
