@@ -14,7 +14,7 @@ The goal is to develop a “media gateway” device able to receive a panoramic 
 
 As an amateurish system the final video produced might have some glitches and especially miss some characteristics of professional-grade human production like zooming, replays and multiple angle of view, but should provide a fair enough experience, way beyond a static panoramic camera.
 
-It will also lack features present in the commercial sports analytics solutions I have been able to find like automatic player statistics or highlights extraction, but these come at a multiple cost: the solution is expensive, the solution needs expensive hardware and the solution needs very complex algorithms to work, and thus time to develop them.
+It will also lack features present in the commercial sports analytics solutions we have been able to find like automatic player statistics or highlights extraction, but these come at a multiple cost: the solution is expensive, the solution needs expensive hardware and the solution needs very complex algorithms to work, and thus time to develop them.
 
 The three of them go against our secondary main goal, be able to produce the video solution at the lower cost possible, orders of magnitude smaller than current alternatives, using COTS hardware.
 
@@ -39,7 +39,7 @@ The fact to use a panoramic camera with multiple sensors is that it easily enabl
 
 It is true a similar effect could be produced using a single lens 4K sensor, being far enough from the field to be able to cover the whole of it without too much HFOV so it doesn’t induce optical distortion (or it is corrected by the camera itself), and at the same time, being able to cover the full playground area in the vertical axis with a portion of the image. The key is, to cover the vertical playground with a portion of the whole image, allowing to produce the virtual PAN effect by cropping. The higher the ratio, the more PANNING we can get.
 
-The same could apply for other panoramic cameras with 3 or 4 sensors, but I believe they don’t compensate for the extra cost.
+The same could apply for other panoramic cameras with 3 or 4 sensors, but we believe they don’t compensate for the extra cost.
 
 # The field
 
@@ -74,7 +74,7 @@ The same applies to coaches and bench players. As they are closer to the playfie
 Finally, referees' silhouettes might also enter that area, but as they participate of the sense of “game motion” it doesn’t affect our concept.
 
 ```
-As seen on the example captured imagez, some optical distorsion might be still present after the  
+As seen on the example captured image, some optical distorsion might be still present after the  
 camera does the dewarping. This is only relevant if it affects the pose area. I don't have a real  
 camera yet to test this scenario. Lets consider this doesn't happen, and if a later stage it is  
 discovered otherwise, we might require a further optical correction stage. As this is not relevant  
@@ -96,9 +96,9 @@ After extensive searching, only 3 alternatives are left:
 
 For the shake of this project, Wifi, Bluetooth or GPS are not relevant. We found some ARM based alternatives like Rockchip3399Pro but their Linux support is quite worrisome.
 
-OpenVINO documentation is quite abundant and prolific, this is why we have started to play with it. Jetson Nano is more or less on the same pricing range, but has fewer TFLOPS (0.5) than Myriad X (1). Unfortunately, Xavier is quite more expensive (more than triple) so we will try to focus only on the first two.
+OpenVINO documentation is quite abundant and detailed, this is why we have started to play with it. Jetson Nano is more or less on the same pricing range, but has fewer TFLOPS (0.5) than Myriad X (1). Unfortunately, Xavier is quite more expensive (more than triple) so we will try to focus only on the first two.
 
-The SBC we have found has an Intel Movidius Myriad X as VPU with PCI signaling (not USB) and a small Intel Atom x5-E3940 SOC as CPU. It is fully compatible with OpenVINO and in the future, could allow us to grow to other mini computers with multiple Movidius Myriad X VPUs available.
+The [Adlink VIZI-AI System](https://goto50.ai/) is the best alternative we have found. It has an Intel Movidius Myriad X as VPU with PCI signaling (not USB), a small Intel Atom x5-E3940 SOC as CPU and 4GB of RAM. It is fully compatible with OpenVINO and in the future, could allow us to grow to other mini computers with multiple Movidius Myriad X VPUs available. Comes with a fancy transparent boxing, a power supply and a set of IoT demo apps from Adlink.
 
 ![System](./images/Amateur_Basketball_Broadcasting_Camera_0.jpg "System")
 
@@ -157,7 +157,7 @@ The output of this module will be:
 
 ![1D Projection](./images/Amateur_Basketball_Broadcasting_Camera_1.jpg "1D Projection")
 
-## Ball detection
+## Ball detection and tracking
 
 Most of the literature focuses on algorithms that try very hard to re identify a target lost due to occlusion, with very much attention to not having identity switches. Also, they try to get the fitting box to perfectly cover the ground truth when in reality, just a general idea of ball location is needed. We believe such efforts are too much waste of computing resources for the needs of this project. To finalize, most of the papers make claims about realtime performance using state of the art GPUs, but not with something as restricted as a Jetson Nano or an Intel Movidius X.
 
@@ -177,6 +177,25 @@ OpenVINO already includes detection capabilities exploiting Movidius VPU, maybe 
 2. [https://github.com/SyGoing/LFFD-OpenVINO](https://github.com/SyGoing/LFFD-OpenVINO) (the author states the model can be adapted to other single type object classes, like would be the case with the basketball)
 
 **Object tracking**
+
+```
+NOTE  
+I just had a nice ideas interchange with Pedro Senna, KF-EBT author's. He suggested to me that, due to the  
+simplicity of my object tracking needs (don't care about reengaging, not model drift and such), it might be  
+faster and for sure simpler to implement to stick to an object detection capability and just call it once in  
+a while with a gross idea of object location (last) for searching.  
+
+This idea opens up a lot of opportunities. First of all, object detection in OpenVINO is already accelerated  
+by the VPU, and it could be that we don't need any custom stuff, just validate that one of the available mechanisms  
+and models work as desired.  
+
+Second, it opens the door to multiple camera support. By reducing the frequency of such a check, we could  
+potentially support multiple streams concurrently. It will be a matter of just playing a bit on the frequency  
+value to find the sweet spot.
+
+So for now object tracking is not needed, and we will focus our efforts into validating this suggestion, and if  
+it is ok, work on the development of the production module.
+```
 
 Unfortunately, OpenVINO does the tracking using the CPU, which in our case is quite limited. We could first evaluate, but it might be interested to consider to port to OpenVINO one of these alternatives:
 
@@ -356,7 +375,7 @@ Once at this stage, the frame could be resized to the desired output quality. Th
 
 # What we are missing
 
-1. Module for either FFMPEG or gstreamer for the movement detection and ball tracking. Can be two modules if desired.
+1. Module for either OpenCV, FFMPEG or gstreamer for the movement detection and ball tracking. Can be two modules if desired.
 2. Module to apply production rules based on produced information in prior module(s)
 3. All software has to be accelerated using OpenVINO functions
 4. In particular, all software should be possible to compile for Intel Movidius Myriad X VPU
