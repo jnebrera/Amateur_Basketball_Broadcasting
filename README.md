@@ -175,6 +175,7 @@ OpenVINO already includes detection capabilities exploiting Movidius VPU, maybe 
 
 1. [https://github.com/dog-qiuqiu/Yolo-Fastest](https://github.com/dog-qiuqiu/Yolo-Fastest)
 2. [https://github.com/SyGoing/LFFD-OpenVINO](https://github.com/SyGoing/LFFD-OpenVINO) (the author states the model can be adapted to other single type object classes, like would be the case with the basketball)
+3. [https://github.com/samc24/EyeBall](https://github.com/samc24/EyeBall) Seems quite a relevant approach using "older" methods
 
 **Object tracking**
 
