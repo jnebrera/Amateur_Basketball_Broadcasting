@@ -26,16 +26,16 @@ Thus, we have seeked for viable COTS cameras with an horizontal FOV of 180º tha
 
 ![Dual lense camera](./images/Amateur_Basketball_Broadcasting_Camera_00.jpg "Camera")
 
-1. Dual 4K sensor
+1. Dual 4M sensor (total of 8M or 5.408x1.568)
 2. 180º HFOV
-3. RTSP output (doesn’t support RTMP)
+3. RTSP/RTMP output
 4. Audio
 
-The produced video stream has a panoramic 2x4K proportion, being 7.680x2.160 pixels. It could be configured to capture in 2xFullHD if needed due to the capacity of the gateway to work with such a big image.
+The produced video stream has a panoramic 2x4M proportion, being 5.408x1.568 pixels. It could be configured to capture in 2xFullHD if needed.
 
 Only one camera will cover a particular field. If more cameras are to be used it is because we might be interested in covering other fields, not to improve the coverage of the same one.
 
-The fact to use a panoramic camera with multiple sensors is that it easily enables the sensation of virtual panning, once final video is produced at standard 4K size. Thus, this enables the “sensation” of the camera moving to follow the action that is what the viewers expect.
+The fact to use a panoramic camera with multiple sensors is that it easily enables the sensation of virtual panning, once final video is produced at standard 4M size. Thus, this enables the “sensation” of the camera moving to follow the action that is what the viewers expect.
 
 It is true a similar effect could be produced using a single lens 4K sensor, being far enough from the field to be able to cover the whole of it without too much HFOV so it doesn’t induce optical distortion (or it is corrected by the camera itself), and at the same time, being able to cover the full playground area in the vertical axis with a portion of the image. The key is, to cover the vertical playground with a portion of the whole image, allowing to produce the virtual PAN effect by cropping. The higher the ratio, the more PANNING we can get.
 
@@ -161,7 +161,7 @@ The output of this module will be:
 
 Most of the literature focuses on algorithms that try very hard to re identify a target lost due to occlusion, with very much attention to not having identity switches. Also, they try to get the fitting box to perfectly cover the ground truth when in reality, just a general idea of ball location is needed. We believe such efforts are too much waste of computing resources for the needs of this project. To finalize, most of the papers make claims about realtime performance using state of the art GPUs, but not with something as restricted as a Jetson Nano or an Intel Movidius X.
 
-The main difficulty here is the size of the video frame (7.680x2.160), the high frame rate (30fps) and the need to do it in real time. If impossible to meet this goal, we could consider the alternative of using a 2xFullHD (3.840x1080)  at 30fps as source but those are the minimums as final video production needs to be Full HD @ 30fps at least.
+The main difficulty here is the size of the video frame (5.408x1.568), the high frame rate (30fps) and the need to do it in real time. If impossible to meet this goal, we could consider the alternative of using a 2xFullHD (3.840x1.080) at 30fps as source but those are the minimums as final video production needs to be 1xFull HD @ 30fps at least.
 
 We understand detecting a free flying ball will be an easy task in general due to the fact there are no similar objects in the frame, the ball is a sphere (circle) and has a distinguishing color pattern. What would be harder will be to detect the ball when partially or fully occluded, that will happen quite a lot. Still, just a glimpse of the ball location will be enough, without worrying too much about precision. 
 
@@ -176,6 +176,13 @@ OpenVINO already includes detection capabilities exploiting Movidius VPU, maybe 
 1. [https://github.com/dog-qiuqiu/Yolo-Fastest](https://github.com/dog-qiuqiu/Yolo-Fastest)
 2. [https://github.com/SyGoing/LFFD-OpenVINO](https://github.com/SyGoing/LFFD-OpenVINO) (the author states the model can be adapted to other single type object classes, like would be the case with the basketball)
 3. [https://github.com/samc24/EyeBall](https://github.com/samc24/EyeBall) Seems quite a relevant approach using "older" methods
+
+```
+NOTE  
+I'm also in contact with Sameer, the author of the [EyeBall project](https://github.com/samc24/EyeBall) that 
+raised my attention as it is quite specific to basketball detection. I hope he joins the project by early 2021
+and we find ways to collaborate in this process.
+```
 
 **Object tracking**
 
