@@ -12,11 +12,11 @@ I have also investigated the possibility to use some kind of open source solutio
 
 The goal is to develop a “media gateway” device able to receive a panoramic video from a Commercial Off The Shelve (COTS) panoramic camera in RTSP/RTMP format and produce “professional-like” broadcast video to Youtube (RTMP). To do so, the system will be able to crop the original panoramic video in a way that “follows the action” and simulates the panning movement. This production needs to be fully automatic, with no human intervention beyond activating / deactivating the stream and initial calibration.
 
-As an amateurish system the final video produced might have some glitches and especially miss some characteristics of professional-grade human production like zooming, replays and multiple angle of view, but should provide a fair enough experience, way beyond a static panoramic camera.
+As an amateurish system the final video produced might have some glitches and especially miss some characteristics of professional-grade human production like zooming, replays and multiple angles of view, but should provide a fair enough experience, way beyond a static panoramic camera.
 
 It will also lack features present in the commercial sports analytics solutions we have been able to find like automatic player statistics or highlights extraction, but these come at a multiple cost: the solution is expensive, the solution needs expensive hardware and the solution needs very complex algorithms to work, and thus time to develop them.
 
-The three of them go against our secondary main goal, be able to produce the video solution at the lower cost possible, orders of magnitude smaller than current alternatives, using COTS hardware.
+The three of them go against our secondary main goal, be able to produce the video solution at the lower cost possible, orders of magnitude lower than current alternatives, using COTS hardware.
 
 # The camera
 
@@ -26,7 +26,7 @@ Thus, we have seeked for viable COTS cameras with an horizontal FOV of 180º tha
 
 ![Dual lense camera](./images/Amateur_Basketball_Broadcasting_Camera_00.jpg "Camera")
 
-1. Dual 4M sensor (total of 8M or 5.408x1.568)
+1. Dual 4MP sensor (total of 8MP or 5.408x1.568)
 2. 180º HFOV
 3. RTSP/RTMP output
 4. Audio
@@ -35,9 +35,7 @@ The produced video stream has a panoramic 2x4M proportion, being 5.120x1.440 pix
 
 Only one camera will cover a particular field. If more cameras are to be used it is because we might be interested in covering other fields, not to improve the coverage of the same one.
 
-The fact to use a panoramic camera with multiple sensors is that it easily enables the sensation of virtual panning, once final video is produced at standard 4M size. Thus, this enables the “sensation” of the camera moving to follow the action that is what the viewers expect.
-
-It is true a similar effect could be produced using a single lens 4K sensor, being far enough from the field to be able to cover the whole of it without too much HFOV so it doesn’t induce optical distortion (or it is corrected by the camera itself), and at the same time, being able to cover the full playground area in the vertical axis with a portion of the image. The key is, to cover the vertical playground with a portion of the whole image, allowing to produce the virtual PAN effect by cropping. The higher the ratio, the more PANNING we can get.
+The fact to use a panoramic camera with multiple sensors is that it easily enables the sensation of virtual panning, once final video is produced at standard 2MP size. Thus, this enables the “sensation” of the camera moving to follow the action that is what the viewers expect.The key is, to cover the vertical playground with a portion of the whole image, allowing to produce the virtual PAN effect by cropping. The higher the ratio, the more PANNING we can get.
 
 The same could apply for other panoramic cameras with 3 or 4 sensors, but we believe they don’t compensate for the extra cost.
 
@@ -66,6 +64,8 @@ We define the following areas that might be used afterwards and that would be co
 3. **Camera pose.-** From the original capture, the area of the background that will be covered by the camera by virtually panning it left and right. The “camera” will not go beyond the lefmost and rightmost extreme corners of the playfield. While maintaining the 32:9 proportion we have to warrant the area of interest is fully included in the view. If this is not the case, then the camera will have to go further to the left and right until all of it is covered or we can work at a reduced ratio, like 24:9 as long as we are between the 32:9 maximum and the 16:9 minimum. If that case, the PAN effect will be reduced.
 
 ![Camera Pose](./images/Amateur_Basketball_Broadcasting_Camera_03.jpg "Camera Pose")
+
+The selected camera is able to crop the original 180 Degree Horizontal FOV to the camera pose, thus reducing the amount of "noise" sent to the processing system. This will for sure reduce the image size, maybe leaving it in the order of 6MP, but again, this further simplifies the effort of the image processing element. Actually, with the selected camera it would be possible to directly broadcast the game without further processing, by just transmitting the Area of Interest, but doing so in a weird proportion.
 
 It is important to warrant public doesn’t enter the playground area under any circumstance, for example if they stand up while watching the game. This should be possible as they are far away from the playground, but if the camera is not properly placed it might happen. This could interfere with the proposed motion detection stage.
 
