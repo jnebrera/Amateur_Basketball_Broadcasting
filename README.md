@@ -57,15 +57,15 @@ We define the following areas that might be used afterwards and that would be co
 
 1. **Playground.-** Ground level area covering the 4 corners of the basketball field. Only players, ball and referees are allowed to be inside this area, thus would be a great candidate for motion detection as would be independent from public movement or coach / player in the bench moving. Unfortunately, the ball and part of the player's silhouette can be outside this area as they can be above the ground level.\
 
-![Playground](./images/Amateur_Basketball_Broadcasting_Camera_01.jpg "Playground")
+![Playground](./images/Captura_Pano_Field.jpg "Playground")
 
 2. **Area of interest.-** Is the 3D extension of the previous area, to 4m high in case of adult basketball or around 3.5m in the case of children basketball (minibasket). The ball could be anywhere inside this area, but at the same time, it might mean we include part of the public or benches as part of the capture
 
-![Area of interest](./images/Amateur_Basketball_Broadcasting_Camera_02.jpg "Area of interest")
+![Area of interest](./images/Captura_Pano_AreaOfInterest.jpg "Area of interest")
 
 3. **Camera pose.-** From the original capture, the area of the background that will be covered by the camera by virtually panning it left and right. The “camera” will not go beyond the lefmost and rightmost extreme corners of the playfield. While maintaining the 32:9 proportion we have to warrant the area of interest is fully included in the view. If this is not the case, then the camera will have to go further to the left and right until all of it is covered or we can work at a reduced ratio, like 24:9 as long as we are between the 32:9 maximum and the 16:9 minimum. If that case, the PAN effect will be reduced.
 
-![Camera Pose](./images/Amateur_Basketball_Broadcasting_Camera_03.jpg "Camera Pose")
+![Camera Pose](./images/Captura_Pano_Pose.jpg "Camera Pose")
 
 The selected camera is able to crop the original 180 Degree Horizontal FOV to the camera pose, thus reducing the amount of "noise" sent to the processing system. This will for sure reduce the image size, maybe leaving it in the order of 6MP, but again, this further simplifies the effort of the image processing element. Actually, with the selected camera it would be possible to directly broadcast the game without further processing, by just transmitting the Area of Interest, but doing so in a weird proportion.
 
