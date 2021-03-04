@@ -24,7 +24,7 @@ The initial idea of the project was to develop our own custom camera, but after 
 
 Thus, we have seeked for viable COTS cameras with an horizontal FOV of 180º that are able to produce a single stream of already dewarped and stitched video. We have found several such alternatives, but we are going to focus on the cheapest one, as the price difference is significant.
 
-![Dual lense camera](./images/Amateur_Basketball_Broadcasting_Camera_00.jpg "Camera")
+![Dual lense camera](./images/Captura_Pano.jpg "Panoramic")
 
 1. Dual 4MP sensor (total of 8MP or 5.408x1.568)
 2. 180º HFOV
@@ -32,6 +32,8 @@ Thus, we have seeked for viable COTS cameras with an horizontal FOV of 180º tha
 4. Audio
 
 The produced video stream has a panoramic 2x4M proportion, being 5.120x1.440 pixels. It could be configured to capture in 2xFullHD if needed.
+
+![Panoramic](./images/Amateur_Basketball_Broadcasting_Camera_00.jpg "Camera")
 
 Only one camera will cover a particular field. If more cameras are to be used it is because we might be interested in covering other fields, not to improve the coverage of the same one.
 
