@@ -20,7 +20,7 @@ In both cases we create a static background by extracting some random frames fro
 
 Motion detection is done every nth frame by substracting the background image. From there, only bigger than a limit area are considered. To those, the feet position is computed and seen if it is withing the playground area.
 
-In the case of Sameer's, the center of gravity is computed just with the center of the feet. In my version, both the position and the area are considered. My alternative makes biggher rectangles weight more in the positioning decision (for eample, multiple players detected as just one box, have significant weight as the area is big).
+In the case of Sameer's, the center of gravity is computed just with the center of the feet. In my version, both the position and the area are considered. My alternative makes biggher rectangles weight more in the positioning decision (for example, multiple players detected as just one box, have significant weight as the area is big).
 
 My version implements the idea of the [Automatic Camera Selection](https://hal.archives-ouvertes.fr/hal-01835033/file/automatic-camera-selection.pdf) paper.
 
