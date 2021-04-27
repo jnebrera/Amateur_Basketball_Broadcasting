@@ -26,7 +26,7 @@ My version implements the idea of the [Automatic Camera Selection](https://hal.a
 
 In my version, I believe there is a better way to compute it, working directly with arrays.
 
-Also, might be interested to apply some Non Maxima Substraction (NMS) to reduce false positives, but reality is, as those tend to happen were there are players, I'm not worried by this factor.
+Also, might be interesting to apply some Non Maxima Substraction (NMS) to reduce false positives, but reality is, as those tend to happen were there are players, I'm not worried by this factor.
 
 Still, the possibility of shapes entering the field while their feet are outside of it and not being related to the game (like coach or public) is clearly affecting the results if their body is partially boxed. In many cases the bounding box doesn't cover the whole body and it is within the field (for example, the upper torso). It would be very important to reduce this effect to the maximum by proper camera placement (in our lab unfortunately the bodies of the coaches clearly enter the field many times).
 
