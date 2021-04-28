@@ -13,17 +13,19 @@ import time
 # without requiring ideal situation (empty court) and with resilience to changes in light coditions (light will change depending on hour)
 # But for now it works and allows me to establish a baseline
 
-cap = cv2.VideoCapture("./game.avi")
+cap = cv2.VideoCapture("./unido.avi")
 frame_width = int( cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 frame_height =int( cap.get( cv2.CAP_PROP_FRAME_HEIGHT))
 factor = 10 #If changed, you need to manually reenter coordinates
 skip_factor = 8 # Number of frames to "jump" without actual motion detection
 dim = (int(frame_width/factor),int(frame_height/factor))
+frames_background_loading = 30*10 #Every minute at 30FPS
 
 # Establish an starting point
 vid_x = int(frame_width/4)
 target_x = vid_x
 target_x_prev = vid_x
+amt = 0
 
 # These correspond to the coordinates of the court boundary as seen from the pano camera. Depend on specific camera installation
 points = [[270, 940],
@@ -69,7 +71,7 @@ background_small_gray = cv2.cvtColor(background_small, cv2.COLOR_BGR2GRAY)
 cap.release()
 
 # Start async video capture stream
-cap = CamGear(source="./game.avi").start()
+cap = CamGear(source="./unido.avi").start()
 
 start = time.time()
 
@@ -83,12 +85,14 @@ while True:
     if frame is None:
         break
 
+    frame_small = cv2.resize(frame, dim, interpolation = cv2.INTER_AREA)
+
     frame_count += 1
 
     # Detect if it is a frame where we want to apply motion detection
     if frame_count % skip_factor == 0:
         #Reduce frame sie to reduce noise and accelerate calculations
-        frame_small = cv2.resize(frame, dim, interpolation = cv2.INTER_AREA)
+        #frame_small = cv2.resize(frame, dim, interpolation = cv2.INTER_AREA)
         frame_small_gray = cv2.cvtColor(frame_small, cv2.COLOR_BGR2GRAY)
 
         # Compute difference with "static" background
@@ -115,7 +119,7 @@ while True:
                 x, y, w, h = cv2.boundingRect(cnt)
                 player_feet = LineString([[x, y + h], [x + w, y + h]])
                 if roi_small.contains(player_feet):
-                    #cv2.rectangle(frame_small, (x,y), (x+w,y+h),(0,255,0),3)
+                    cv2.rectangle(frame_small, (x,y), (x+w,y+h),(0,255,0),3)
                     # For the computation of center of mass
                     top += x*area
                     bottom += area
@@ -130,20 +134,16 @@ while True:
 
         # Virtual panning of the camera
         # It does work, but I think something smoother would add real value. Any help here would be really appreciated from some person with PTZ management experience
-        if (target_x - vid_x) >= 200:
-            amt = (target_x - vid_x)//30
-            if amt>10:
-                vid_x+=amt
-
-        elif (vid_x - target_x) >=200:
-            amt = (vid_x - target_x)//30
-            if amt>10:
-                vid_x-=amt
+        if abs(target_x - vid_x) >= 100:
+            if abs(target_x - vid_x) >= 300:
+                amt = int(((target_x - vid_x)/5)//skip_factor)
+            else:
+                amt = int(((target_x - vid_x)/10)//skip_factor)
         else:
-            vid_x = vid_x
+            amt=0
 
-        # I don't know why this is needed, but got some errors due to being a float
-        vid_x = int(vid_x)
+    # I don't know why this is needed, but got some errors due to being a float
+    vid_x = int(vid_x+amt)
 
     # Display will contain the frame as seen on the broadcasting. This is done for ALL frames. First we crop the panoramic frame (panning) the we reduce its size to FullHD
     display = frame[0: 1440,vid_x: vid_x+2560]
@@ -151,9 +151,9 @@ while True:
 
     # Different views to see it is working right
     #cv2.imshow("Frame", frame)
-    #cv2.imshow("Blobs", frame_small)
+    cv2.imshow("Blobs", frame_small)
     #cv2.imshow("Mask", dilated)
-    #cv2.imshow("Display", display)
+    cv2.imshow("Display", display)
 
     #Break if ESC key is pressed
     key = cv2.waitKey(30)
