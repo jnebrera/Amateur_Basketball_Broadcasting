@@ -133,7 +133,6 @@ while True:
             target_x = int(max(100,min(top/bottom*factor-2560/2,4900-2560)))
 
         # Virtual panning of the camera
-        # It does work, but I think something smoother would add real value. Any help here would be really appreciated from some person with PTZ management experience
         if abs(target_x - vid_x) >= 100:
             if abs(target_x - vid_x) >= 300:
                 amt = int(((target_x - vid_x)/5)//skip_factor)
