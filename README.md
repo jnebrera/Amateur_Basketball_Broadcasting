@@ -32,9 +32,9 @@ Still, the possibility of shapes entering the field while their feet are outside
 
 I just purchased a Jetson Nano 2GB Dev Kit. Hope that by using a more advanced motion detection mechanism while still being able to sustain the framerate, will improve this situation.
 
-# The panning
+# The panning (April 29th)
 
-The implemented panning system is quite simple. Surely it could be improved to make it smoother. We establish limits both to the left and right, so the camera doesn't focus on an area of little interest for the game (values are specific to the field seen by the camera).
+I just commited a better panning system solving mostly the jitter in the movement. Now is quite smooth and in case of necessity, jumps forward faster. For sure it could be further improved by someone with PTZ management experience, but for now is ok.
 
 # Async video capture
 
