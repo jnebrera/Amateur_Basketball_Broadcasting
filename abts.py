@@ -7,7 +7,7 @@ import time
 
 # I'm using VidGear async video capture for faster resutls
 # Went from 16.8 FPS in my Mac to 25.1 FPS without any other change
-# After eliminating the wait key safeguard (as it would be in production) it reached 27.6 FPS very close to real time (30 FPS in this particular camera setup)
+# After eliminating the wait key safeguard (as it would be in production) it reached 27.6 FPS very close to real time
 
 # First, load the video using standard capture to generate a background image. In reallity, we should find a way to make this process automatic
 # without requiring ideal situation (empty court) and with resilience to changes in light coditions (light will change depending on hour)
@@ -18,10 +18,9 @@ video_source = "./game.avi"
 cap = cv2.VideoCapture(video_source)
 frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-factor = 10  # If changed, you need to reenter coordinates
+factor = 10  # How much to reduce the image for computation
 skip_factor = 8  # Number of frames to "jump" without actual motion detection
 dim = (int(frame_width / factor), int(frame_height / factor))
-frames_background_loading = 30 * 10  # Every minute at 30FPS
 
 # Establish an starting point
 vid_x = frame_width // 4
@@ -44,10 +43,8 @@ points = np.array(
     ]
 )
 
-# These are the same points reduced by the factor (10).
-points_small = points // factor  # It's now optimizied :D
-
-print(points_small)
+# These are the same points reduced by the factor.
+points_small = points // factor 
 
 roi = Polygon(points)
 roi_small = Polygon(points_small)
@@ -61,6 +58,7 @@ for idx in frame_indices:
     cap.set(cv2.CAP_PROP_POS_FRAMES, idx)
     ret, frame = cap.read()
     frames.append(frame)
+
 # Calculate the background as an averaged image, and reduce its size
 background = np.median(frames, axis=0).astype(np.uint8)
 background_small = cv2.resize(background, dim, interpolation=cv2.INTER_AREA)
@@ -122,10 +120,11 @@ while True:
                 x, y, w, h = cv2.boundingRect(cnt)
                 player_feet = LineString([[x, y + h], [x + w, y + h]])
                 if roi_small.contains(player_feet):
-                    cv2.rectangle(frame_small, (x, y), (x + w, y + h), (0, 255, 0), 3)
+                    # cv2.rectangle(frame_small, (x, y), (x + w, y + h), (0, 255, 0), 3)
                     # For the computation of center of mass
                     top += x * area
                     bottom += area
+        
         # Safenet just in case there were no BLOBS detected
         if bottom == 0:
             target_x = target_x_prev
@@ -149,7 +148,7 @@ while True:
 
     # Different views to see it is working right
     # cv2.imshow("Frame", frame)
-    cv2.imshow("Blobs", frame_small)
+    # cv2.imshow("Blobs", frame_small)
     # cv2.imshow("Mask", dilated)
     cv2.imshow("Display", display)
 
@@ -159,14 +158,15 @@ while True:
     key = cv2.waitKey(30)
     if key == 27:
         break
+
 end = time.time()
 print("Total")
 print(end - start)
 print("Frames per second")
 print(frame_count / (end - start))
 
-cv2.destroyAllWindows()
 # Release objects
+cv2.destroyAllWindows()
 cap.stop()
 writer.close()
 
