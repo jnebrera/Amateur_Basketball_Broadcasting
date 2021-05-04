@@ -26,7 +26,7 @@ My version implements the idea of the [Automatic Camera Selection](https://hal.a
 
 In my version, I believe there is a better way to compute it, working directly with arrays.
 
-Also, might be interesting to apply some Non Maxima Substraction (NMS) to reduce false positives, but reality is, as those tend to happen were there are players, I'm not worried by this factor.
+Also, might be interesting to apply some Non Maximum Substraction (NMS) to reduce false positives, but reality is, as those tend to happen were there are players, I'm not worried by this factor.
 
 Still, the possibility of shapes entering the field while their feet are outside of it and not being related to the game (like coach or public) is clearly affecting the results if their body is partially boxed. In many cases the bounding box doesn't cover the whole body and it is within the field (for example, the upper torso). It would be very important to reduce this effect to the maximum by proper camera placement (in our lab unfortunately the bodies of the coaches clearly enter the field many times).
 
@@ -50,10 +50,17 @@ One way to speed up the center of gravity computation was to do it directly over
 
 Also, instead of using an static background image we tried to detect movement by substracting a prior frame. We tried both frame -1 and frame -skip but the results were too erratic (the problem of the coach being partially detected as within the field).
 
-# Things to try
+# Async video writing and others (As of May 4th)
 
-I want to try to apply a bitmask to the image to discard from further computation areas that we know for sure have no effect on the game itself (public areas, benches). Unfortunately I'm quite new to Python and OpenCV and have been unable to do it by myself. Any help would be appreciated. The key here is that the "active" area is defined by a polygon shape.
+Thanks to the help of VidGear's main developer, now the code is able to record the resulting video. In my Mac I get around 12FPS when eanbling recording. He also made some little improvements on other parts of the code.
 
-When I receive the Jetson Nano, I will try to improve all the code with the help of GPU acceleration. Let's see.
+# Things to do (We would love some help here)
+
+1. Improve rectangle selection by applying some Non Maximum Suppresion
+2. Improve center of mass calculation by using matrix operations after NMS
+3. Apply bitmask to remove areas where we know movement detection is undesirable and could lead to many false positives (public)
+4. Apply some correction to area computation based on the distance to the camera as further rectangles weight less than closer ones
+5. Port code to Nvidia Jetson Nano 2GB
+6. Port code to Adlink Vizi-AI board based on Intel Myriad X
 
 
