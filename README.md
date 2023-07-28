@@ -2,6 +2,12 @@
 
 ![](./images/Title.jpg "Cover")
 
+# News
+
+I'm restarting the project using YOLO for player and ball detection here https://github.com/jnebrera/basketball-broadcaster
+
+Please, jump into that project if you are interested in any form of collaboration
+
 # First software releases as of April 27th 2021
 
 You can see the design and consideration in the [about section](https://github.com/jnebrera/Amateur_Basketball_Broadcasting/blob/main/about.md).
