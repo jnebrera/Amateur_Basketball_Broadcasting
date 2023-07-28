@@ -2,6 +2,12 @@
 
 ![](./images/Title.jpg "Cover")
 
+# News
+
+I'm restarting the project using YOLO for player and ball detection here https://github.com/jnebrera/basketball-broadcaster
+
+Please, jump into that project if you are interested in any form of collaboration
+
 # Introduction
 
 I am a coach and parent of two kids in an amateur basketball club here in Spain. I suggested the club to use some kind of AI powered camera to broadcast the games to Youtube instead of a volunteered parent with his mobile, but I have found existing commercial solutions are way too expensive for the economic reality of an amateur club: either the camera costs too much (3K to 5K€) and/or the yearly payment is too high (3K to 20K€ per year).
