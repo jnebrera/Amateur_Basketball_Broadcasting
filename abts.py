@@ -28,7 +28,7 @@ target_x = vid_x
 target_x_prev = vid_x
 amt = 0
 
-# These correspond to the coordinates of the court boundary as seen from the pano camera. Depend on specific camera installation
+# These correspond to the coordinates of the court boundary as seen from the pano camera. Depends on specific camera installation
 points = np.array(
     [
         [270, 940],
@@ -93,7 +93,7 @@ while True:
 
     # Detect if it is a frame where we want to apply motion detection
     if frame_count % skip_factor == 0:
-        # Reduce frame sie to reduce noise and accelerate calculations
+        # Reduce frame size to reduce noise and accelerate calculations
         # frame_small = cv2.resize(frame, dim, interpolation = cv2.INTER_AREA)
         frame_small_gray = cv2.cvtColor(frame_small, cv2.COLOR_BGR2GRAY)
 
@@ -107,9 +107,9 @@ while True:
         # sC = time.time()
         contours, _ = cv2.findContours(dilated, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
-        top = 0
-        bottom = 0
         target_x_prev = target_x
+        avg = 0
+        n = 0
         # Iterate over the founded contours to discard the small ones or those outside of the roi. Compute center of mass.
         # I'm aware there should be a better way to do this process, to start with, it would be interesting to compute as an array
         # instead of carrying the variable. Second, might be interesting to use some kind of Non Maxima Suppresion (NMS) to discard
@@ -122,15 +122,17 @@ while True:
                 if roi_small.contains(player_feet):
                     # cv2.rectangle(frame_small, (x, y), (x + w, y + h), (0, 255, 0), 3)
                     # For the computation of center of mass
-                    top += x * area
-                    bottom += area
+                    avg += x
+                    n += 1
         
         # Safenet just in case there were no BLOBS detected
-        if bottom == 0:
+        if n == 0:
             target_x = target_x_prev
+            
         # Establish target_x considering limits of the visible field, both to the left and to the right, values are specific to this camera installation
         else:
-            target_x = int(max(100, min(top / bottom * factor - 2560 / 2, 4900 - 2560)))
+            target_x = int(max(100, min(avg / n * factor - 2560 / 2, 4900 - 2560)))
+            
         # Virtual panning of the camera
         if abs(target_x - vid_x) >= 100:
             if abs(target_x - vid_x) >= 300:
